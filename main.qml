@@ -65,6 +65,9 @@ Window {
             Component.onCompleted: {
                 routeQuery.addWaypoint(QtPositioning.coordinate(47.749676, 7.340333));
                 routeQuery.addWaypoint(QtPositioning.coordinate(47.728204, 7.308574));
+                routeQuery.addWaypoint(QtPositioning.coordinate(47.732828, 7.352456));
+                routeQuery.addWaypoint(QtPositioning.coordinate(47.766266, 7.384423));
+                routeQuery.addWaypoint(QtPositioning.coordinate(47.749676, 7.340333));
                 update();
 
             }
