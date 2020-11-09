@@ -16,6 +16,7 @@ Window {
     }
 
     Map {
+        id: map
         width: 600
         anchors.fill: parent
         anchors.rightMargin: 0
@@ -25,15 +26,11 @@ Window {
         plugin: mapPlugin
         center: QtPositioning.coordinate(47.746, 7.3384) // Mulhouse
         zoomLevel: 14
-        Text {
-
-        }
         Timer {
               interval: 500; running: true; repeat: true
               onTriggered: time.text = Date().toString()
-          }
-
-          Text {
+        }
+        Text {
               id: time
               x: 249
               y: 0
@@ -45,7 +42,34 @@ Window {
               styleColor: "#c51414"
               font.bold: true
               font.family: "Times New Roman"
-          }
+        }
+        MouseArea {
+                anchors.fill: parent
+                onPressed: console.log('latitude = '+ (map.toCoordinate(Qt.point(mouse.x,mouse.y)).latitude),
+                                       'longitude = '+ (map.toCoordinate(Qt.point(mouse.x,mouse.y)).longitude));
+        }
+        MapItemView {
+            model: routeModel
+            delegate: Component {
+                MapRoute {
+                    route: routeData
+                    line.color: "blue"
+                    line.width: 4
+                }
+            }
+        }
+        RouteModel {
+            id: routeModel
+            plugin: map.plugin
+            query: RouteQuery { id: routeQuery }
+            Component.onCompleted: {
+                routeQuery.addWaypoint(QtPositioning.coordinate(47.749676, 7.340333));
+                routeQuery.addWaypoint(QtPositioning.coordinate(47.728204, 7.308574));
+                update();
+
+            }
+        }
+
     }
 
 }
