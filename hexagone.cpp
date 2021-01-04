@@ -4,7 +4,7 @@
 
 const double PI= 3.14159265359;
 
-Hexagone::Hexagone():d_centre{Point(47.746, 7.3384)},d_rayon{0.025} {}
+Hexagone::Hexagone():d_centre{Point(47.746, 7.3384)},d_rayon{0.0025} {}
 
 Point Hexagone::centre(){return d_centre;}
 double Hexagone::rayon(){return d_rayon;}

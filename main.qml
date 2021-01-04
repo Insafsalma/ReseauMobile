@@ -4,11 +4,18 @@ import QtQuick.VirtualKeyboard 2.4
 import QtLocation 5.15
 import QtPositioning 5.15
 
+import QtQuick.Dialogs 1.0
+import QtQuick.Controls 2.0
+import QtQuick.Controls 1.4
 
-Window {
+
+ApplicationWindow {
+    id: window
     width: 600
     height: 600
     visible: true
+
+    property var listHexagones: []
 
     Plugin {
         id: mapPlugin
@@ -26,6 +33,7 @@ Window {
         plugin: mapPlugin
         center: QtPositioning.coordinate(47.746, 7.3384) // Mulhouse
         zoomLevel: 14
+
         Timer {
               interval: 500; running: true; repeat: true
               onTriggered: time.text = Date().toString()
@@ -73,6 +81,22 @@ Window {
             }
         }
 
+    }
+
+    function addHexagone(latitude, longitude, r, g, b, centreLong, centreLat){
+
+        var component = Qt.createComponent("qrc:///hexagone.qml");
+        var polygon = component.createObject(window);
+        var centreCoordinate = QtPositioning.coordinate(centreLat, centreLong);
+
+        for(var i=0; i < latitude.length; i++){
+            var coordinate = QtPositioning.coordinate(latitude[i], longitude[i]);
+            polygon.addCoordinate(coordinate);
+            polygon.color =  "#" + r + g+ b;
+            polygon.coordinate = centreCoordinate;
+            listHexagones.push(polygon);
+        }
+        map.addMapItem(polygon);
     }
 
 }
