@@ -6,10 +6,10 @@ MapPolygon
 {
     id: marker
     opacity: 0.10
-  //  autoFadeIn : false
+    autoFadeIn : false
     property var coordinate:
     {
-        latitude: 5
+        latitude: 0
         longitude : 0
     }
 }

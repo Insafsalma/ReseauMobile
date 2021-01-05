@@ -15,7 +15,7 @@ void sendHexagonesToQml(QObject* ,vector<Hexagone>);
 
 int main(int argc, char *argv[]){
 
-    const int numberOfHexagones = 30;
+    const int numberOfHexagones = 20;
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
@@ -33,29 +33,75 @@ int main(int argc, char *argv[]){
     sendHexagonesToQml(object, listHexagones);
     return app.exec();
 }
+
+
+
+
+std::vector<Hexagone> creerLigneHexagone(Point premierCentre, int nombre){
+    std::vector<Hexagone> listHexagones;
+    double marge = 0;
+    Point centre = premierCentre;
+    for (int i = 0; i < nombre; i++) {
+        Hexagone hexagone;
+        centre.setX(premierCentre.x() + marge);
+        hexagone.setCentre(centre);
+        hexagone.calculerSommets();
+
+        listHexagones.push_back(hexagone);
+        marge += hexagone.rayon() * sqrt(3);
+
+    }
+
+    return listHexagones;
+}
+
+
+std::vector<Hexagone> remplirPaire(Point premierCentre, int nombre){
+    std::vector<Hexagone> listHexagonesPaires;
+
+    listHexagonesPaires = creerLigneHexagone(premierCentre, nombre);
+    return listHexagonesPaires;
+}
+
+std::vector<Hexagone> remplirImpaire(Hexagone premierHexagonePaire, int nombre){
+    std::vector<Hexagone> listHexagonesImpaires;
+
+    Point premierCentre = premierHexagonePaire.centre();
+    double Y = premierCentre.y()-(premierHexagonePaire.rayon()*1.5);
+    double X = premierCentre.x()+(premierHexagonePaire.rayon()*sqrt(3)/2);
+
+    premierCentre.setX(X);
+    premierCentre.setY(Y);
+
+    listHexagonesImpaires = creerLigneHexagone(premierCentre, nombre);
+
+    return listHexagonesImpaires;
+}
+
 vector<Hexagone> generateHexagones(int numberOfHexagones){
 
     vector<Hexagone> listHexagones;
     vector<Hexagone> listHexagonesImpaires;
     vector<Hexagone> listHeaxgonesPaires;
 
-    listHexagones = remplirPaire(Point(7.2675, 47.7839), numberOfHexagones);
-    listHexagonesImpaires = remplirImpaire(listHexagones[0], numberOfHexagones);
+    //Remplir la premiere ligne des hexagones
+    listHexagones = remplirPaire(Point(7.29573627960113, 47.76234132591956), numberOfHexagones);
 
+    listHexagonesImpaires = remplirImpaire(listHexagones[0], numberOfHexagones);
     for (int i = 0; i < listHexagonesImpaires.size(); i++) {
         listHexagones.push_back(listHexagonesImpaires[i]);
     }
-    for(int i=1 ;i<numberOfHexagones/2;i++) {
-        Point firstPointPaire ;
+    for(int i=1 ;i<numberOfHexagones/2-5;i++) {
+        Point premierPointPaire ;
 
-        firstPointPaire.setX(listHexagones[0].centre().x());
-        firstPointPaire.setY(listHexagones[0].centre().y()-(3*i*listHexagones[0].rayon()));
-        remplirPaire(firstPointPaire, numberOfHexagones);
-        remplirImpaire(remplirPaire(firstPointPaire, numberOfHexagones)[0], numberOfHexagones);
+        premierPointPaire.setX(listHexagones[0].centre().x());
+        premierPointPaire.setY(listHexagones[0].centre().y()-(3*i*listHexagones[0].rayon()));
+        remplirPaire(premierPointPaire, numberOfHexagones);
+        remplirImpaire(remplirPaire(premierPointPaire, numberOfHexagones)[0], numberOfHexagones);
 
-        for (int i = 0; i < remplirPaire(firstPointPaire, numberOfHexagones).size(); i++) {
-            listHexagones.push_back(remplirPaire(firstPointPaire, numberOfHexagones)[i]);
-            listHexagones.push_back(remplirImpaire(remplirPaire(firstPointPaire, numberOfHexagones)[0], numberOfHexagones)[i]);
+        for (int i = 0; i < remplirPaire(premierPointPaire, numberOfHexagones).size(); i++) {
+            listHexagones.push_back(remplirPaire(premierPointPaire, numberOfHexagones)[i]);
+            listHexagones.push_back(remplirImpaire(remplirPaire(premierPointPaire, numberOfHexagones)[0], numberOfHexagones)[i]);
         }
 
     }
@@ -70,8 +116,7 @@ void sendHexagonesToQml(QObject* object,vector<Hexagone> listHexagones){
 
     for (int i = 0; i < listHexagones.size(); i++) {
         std::vector<Point> sommets = listHexagones[i].sommets();
-        int r = 58, g=60, b= 36;
-        double opacity = 0.75;
+        int r = 0, g=255, b= 255;
         for (int i = 0; i < sommets.size(); i++){
             QGeoCoordinate coordinate;
             coordinate.setLatitude(sommets[i].y());
@@ -98,3 +143,4 @@ void sendHexagonesToQml(QObject* object,vector<Hexagone> listHexagones){
         coordinateList.clear();
     }
 }
+
