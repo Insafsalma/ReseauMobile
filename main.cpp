@@ -2,7 +2,6 @@
 #include <QQmlApplicationEngine>
 #include<hexagone.h>
 #include<iostream>
-#include <utils.h>
 #include <QQuickStyle>
 #include <QQmlComponent>
 
@@ -110,39 +109,39 @@ vector<Hexagone> generateHexagones(int numberOfHexagones){
     return listHexagones;
 }
 
-void sendHexagonesToQml(QObject* object,vector<Hexagone> listHexagones){
+void sendHexagonesToQml(QObject* obj,vector<Hexagone> listHexagones){
 
-    QList<QGeoCoordinate> coordinateList;
-    QVariantList listLongitude;
-    QVariantList listLatitude;
+    QList<QGeoCoordinate> listeCordonnee;
+    QVariantList listeLongitude;
+    QVariantList listeLatitude;
 
     for (int i = 0; i < listHexagones.size(); i++) {
         std::vector<Point> sommets = listHexagones[i].sommets();
         int r = 0, g=255, b= 255;
+        int couleur = r + g+ b;
         for (int i = 0; i < sommets.size(); i++){
-            QGeoCoordinate coordinate;
-            coordinate.setLatitude(sommets[i].y());
-            coordinate.setLongitude(sommets[i].x());
-            coordinateList.push_back(coordinate);
+            QGeoCoordinate coordonnee;
+            coordonnee.setLatitude(sommets[i].y());
+            coordonnee.setLongitude(sommets[i].x());
+            listeCordonnee.push_back(coordonnee);
 
         }
 
-        for(int i = 0 ; i < coordinateList.size(); i++){
-            listLatitude.push_back(coordinateList[i].latitude());
-            listLongitude.push_back(coordinateList[i].longitude());
+        for(int i = 0 ; i < listeCordonnee.size(); i++){
+            listeLatitude.push_back(listeCordonnee[i].latitude());
+            listeLongitude.push_back(listeCordonnee[i].longitude());
         }
 
-        QMetaObject::invokeMethod(object, "addHexagone",
-                                  Q_ARG(QVariant, QVariant::fromValue(listLatitude)),
-                                  Q_ARG(QVariant, QVariant::fromValue(listLongitude)),
-                                  Q_ARG(QVariant, QVariant::fromValue(r)),
-                                  Q_ARG(QVariant, QVariant::fromValue(g)),
-                                  Q_ARG(QVariant, QVariant::fromValue(b)),
+
+        QMetaObject::invokeMethod(obj, "dessinerHexagone",
+                                  Q_ARG(QVariant, QVariant::fromValue(listeLatitude)),
+                                  Q_ARG(QVariant, QVariant::fromValue(listeLongitude)),
+                                  Q_ARG(QVariant, QVariant::fromValue(couleur)),
                                   Q_ARG(QVariant, QVariant::fromValue(listHexagones[i].centre().x())),
                                   Q_ARG(QVariant, QVariant::fromValue(listHexagones[i].centre().y())));
-        listLongitude.clear();
-        listLatitude.clear();
-        coordinateList.clear();
+        listeLongitude.clear();
+        listeLatitude.clear();
+        listeCordonnee.clear();
     }
 }
 

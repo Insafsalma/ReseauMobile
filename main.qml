@@ -20,6 +20,8 @@ ApplicationWindow {
     Plugin {
         id: mapPlugin
         name: "osm"
+
+
     }
 
     Map {
@@ -91,17 +93,17 @@ ApplicationWindow {
                }
     }
 
-    function addHexagone(latitude, longitude, r, g, b, centreLong, centreLat){
+    function dessinerHexagone(latitude, longitude, couleur, centreLongitude, centreLatitude){
 
         var component = Qt.createComponent("qrc:///hexagone.qml");
         var polygon = component.createObject(window);
-        var centreCoordinate = QtPositioning.coordinate(centreLat, centreLong);
+        var coordoneeCentre = QtPositioning.coordinate(centreLatitude, centreLongitude);
 
         for(var i=0; i < latitude.length; i++){
             var coordinate = QtPositioning.coordinate(latitude[i], longitude[i]);
             polygon.addCoordinate(coordinate);
-            polygon.color =  "#" + r + g+ b;
-            polygon.coordinate = centreCoordinate;
+            polygon.color =  "#" + couleur;
+            polygon.coordinate = coordoneeCentre;
             listHexagones.push(polygon);
         }
         map.addMapItem(polygon);
