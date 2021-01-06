@@ -13,13 +13,19 @@ SOURCES += \
         hexagone.cpp \
         main.cpp \
         point.cpp \
-        vehicule.cpp
+        simulation.cpp \
+        utils.cpp \
+        vehicule.cpp \
+        vehiculecontroller.cpp
 
 HEADERS += \
-    antenne.h \
+     antenne.h \
     hexagone.h \
     point.h \
-    vehicule.h
+    simulation.h \
+    utils.h \
+    vehicule.h \
+    vehiculecontroller.h
 
 #RESOURCES += qml.qrc
 RESOURCES += \
