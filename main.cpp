@@ -6,6 +6,8 @@
 #include <QQuickStyle>
 #include <QQmlComponent>
 
+#include <cmath>
+
 #include <QGeoCoordinate>
 
 using namespace std;

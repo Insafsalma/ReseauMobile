@@ -14,16 +14,14 @@ SOURCES += \
         main.cpp \
         point.cpp \
         simulation.cpp \
-        utils.cpp \
         vehicule.cpp \
         vehiculecontroller.cpp
 
 HEADERS += \
-     antenne.h \
+    antenne.h \
     hexagone.h \
     point.h \
     simulation.h \
-    utils.h \
     vehicule.h \
     vehiculecontroller.h
 
