@@ -77,10 +77,18 @@ ApplicationWindow {
                 routeQuery.addWaypoint(QtPositioning.coordinate(47.766266, 7.384423));
                 routeQuery.addWaypoint(QtPositioning.coordinate(47.749676, 7.340333));
                 update();
-
             }
         }
-
+          MapCircle {
+                   center {
+                                 latitude: 47.728204
+                                 longitude: 7.308574
+                             }
+                   radius: 10.0
+                   color:  "red"
+                   border.color: "red"
+                   border.width: 1
+               }
     }
 
     function addHexagone(latitude, longitude, r, g, b, centreLong, centreLat){
