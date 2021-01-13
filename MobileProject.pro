@@ -29,7 +29,7 @@ HEADERS += \
 RESOURCES += \
     main.qml \
     hexagone.qml \
-    a-magnetique-auto.jpg \
+    antenne.png \
     ajoutAntenne.qml \
     antenne.qml \
 
@@ -50,8 +50,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 
 DISTFILES += \
-    a-magnetique-auto.jpg \
     ajoutAntenne.qml \
+    antenne.png \
     antenne.qml \
     hexagone.qml \
     main.qml

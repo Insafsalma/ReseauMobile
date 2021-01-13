@@ -137,11 +137,11 @@ ApplicationWindow {
     }
 
     function addAntenne(){
-        var latitude = middleware.listLatitude;
+      /*  var latitude = middleware.listLatitude;
         var longitude = middleware.listLongitude;
         var puissance = middleware.listPuissance;
         var frequence = middleware.listFrequence;
-        var color = middleware.listColor;
+        var color = middleware.listColor;*/
 
         for (var i = 0; i < latitude.length; i++){
             var coordinate = QtPositioning.coordinate(latitude[i], longitude[i]);
@@ -149,7 +149,6 @@ ApplicationWindow {
             var antenne = component.createObject(window);
             antenne.coordinate = coordinate;
             antenne.puissance = puissance[i];
-            antenne.couleur = color[i];
             antenne.frequence = frequence[i];
             listAntennes.push(antenne);
             map.addMapItem(antenne);
@@ -164,7 +163,7 @@ ApplicationWindow {
             if(listAntennes.length == 0){
                 listHexagones[i].antenne = undefined
                 listHexagones[i].color = "#586036"
-                listHexagones[i].opacity = 0.75
+                listHexagones[i].opacity = 0.25
                 listHexagones[i].puissanceRecue = 0
 
             } else {
@@ -178,8 +177,7 @@ ApplicationWindow {
                     }
                 }
                 listHexagones[i].antenne = listAntennes[positionAntenne];
-               // listHexagones[i].color = listAntennes[positionAntenne].couleur;
-                listHexagones[i].opacity = 0.75 * puissanceRecueAncienne / listAntennes[positionAntenne].puissance * 10;
+                listHexagones[i].opacity = 0.25 * puissanceRecueAncienne / listAntennes[positionAntenne].puissance * 10;
                 listHexagones[i].puissanceRecue = puissanceRecueAncienne
             }
 

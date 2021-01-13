@@ -13,7 +13,7 @@ MapQuickItem {
 
     sourceItem: Image {
         id: icon
-        source: "a-magnetique-auto.jpg"
+        source: "antenne.png"
         sourceSize.width: 60
         sourceSize.height: 60
     }
