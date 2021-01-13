@@ -38,14 +38,5 @@ MapQuickItem {
         return "Nom de l'antenne " + this.nom +"\nFréquence de l'antenne: " +this.frequence + "\nPuissance de l'antenne "+this.puissance
     }
 
-    Menu {
-        id: antenneMenu
-
-        MenuItem {
-            text:"Supprimer l'antenne"
-            onTriggered: deleteAntenne()
-        }
-    }
-
 }
 

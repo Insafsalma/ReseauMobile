@@ -7,7 +7,7 @@ MapPolygon
     id: marker
     opacity: 0.10
     autoFadeIn : false
-    property var antennePos
+  //  property var antennePos
     property var puissance
     property var frequence
     property var nom
@@ -22,24 +22,6 @@ MapPolygon
     property var puissanceRecue
     MouseArea{
         id: mouse
-        anchors.fill: parent
-        cursorShape: Qt.PointingHandCursor
-        acceptedButtons: "RightButton"
-        hoverEnabled: true
-        onClicked: {
-
-            nom = "antenne"
-            puissance = 1
-            frequence = 99
-            ajouterAntenne()
-            assignAntenneToHexagone();
-
-        }
-
-    }
-
-    MouseArea{
-        id: mouseAntenne
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: "LeftButton"
