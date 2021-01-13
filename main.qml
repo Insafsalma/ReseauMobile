@@ -21,6 +21,7 @@ ApplicationWindow {
     visible: true
 
     property var listHexagones: []
+    property var listAntennes: []
 
     Plugin {
         id: mapPlugin
@@ -163,7 +164,7 @@ ApplicationWindow {
                     }
                 }
                 listHexagones[i].antenne = listAntennes[positionAntenne];
-                listHexagones[i].color = listAntennes[positionAntenne].couleur;
+               // listHexagones[i].color = listAntennes[positionAntenne].couleur;
                 listHexagones[i].opacity = 0.75 * puissanceRecueAncienne / listAntennes[positionAntenne].puissance * 10;
                 listHexagones[i].puissanceRecue = puissanceRecueAncienne
             }
