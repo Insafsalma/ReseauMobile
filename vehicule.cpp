@@ -11,6 +11,14 @@ void Vehicule::deplacer(const Point &p)
 {
    d_position=p;
 }
+Point Vehicule::centre()
+{
+    return d_position;
+}
+void Vehicule::setPosition(Point centre)
+{
+    d_position=centre;
+}
 Point Vehicule::getPosition(int time)
 {
     return d_position_info[time];
