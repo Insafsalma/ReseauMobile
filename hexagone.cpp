@@ -12,12 +12,17 @@ std::vector<Antenne*> Hexagone::antennes(){
     return d_antennes;
 }
 
+std::vector<Vehicule*> Hexagone::vehicules(){
+    return d_vehicules;
+}
+
 std::vector<Point> Hexagone::sommets(){
     return d_sommets;
 }
 void Hexagone::setCentre(Point centre){d_centre=centre;}
 void Hexagone::setRayon(double rayon){d_rayon=rayon;}
 void Hexagone::ajouterAntenne(Antenne *a){d_antennes.push_back(a);}
+void Hexagone::ajouterVehicule(Vehicule *a){d_vehicules.push_back(a);}
 
 void Hexagone::supprimerAntenne(Antenne *a) {
     for(int i=0;i<d_antennes.size();i++) {

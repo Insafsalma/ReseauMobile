@@ -31,12 +31,32 @@ MapPolygon
             nom = "antenne"
             puissance = 1
             frequence = 99
-            addAntenneDialog()
+            ajouterAntenne()
             assignAntenneToHexagone();
 
         }
 
     }
+
+    MouseArea{
+        id: mouseAntenne
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        acceptedButtons: "LeftButton"
+        hoverEnabled: true
+        onClicked: {
+
+            nom = "antenne"
+            puissance = 1
+            frequence = 99
+            ajouterAntenne()
+            assignAntenneToHexagone();
+
+        }
+
+    }
+
+
     ToolTip {
         id: toolTip
         text: textToolTip()
@@ -52,7 +72,7 @@ MapPolygon
         }
     }
 
-    function addAntenneDialog(){
+    function ajouterAntenne(){
         var component = Qt.createComponent("qrc:///antenne.qml");
         var antenne = component.createObject(window);
 

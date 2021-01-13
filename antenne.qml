@@ -47,27 +47,5 @@ MapQuickItem {
         }
     }
 
-    function showDialogUpdate(){
-        var component = Qt.createComponent("qrc:///ajoutAntenne.qml");
-        var dialog = component.createObject(window);
-        var pos = listAntennes.indexOf(this)
-        dialog.label = "Modifier une antenne"
-        dialog.getCoordinate(coordinate.latitude, coordinate.longitude);
-
-        dialog.nom = this.nom
-        dialog.frequence = this.frequence
-        dialog.puissance = this.puissance
-        dialog.antennePos = pos
-        dialog.getCoordinate(coordinate.latitude, coordinate.longitude);
-
-        return dialog
-    }
-
-    function deleteAntenne(){
-        var pos = listAntennes.indexOf(this)
-        listAntennes.splice(pos,1)
-        parent.removeMapItem(this)
-        assignAntenneToHexagone()
-    }
 }
 
