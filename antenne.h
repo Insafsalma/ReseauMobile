@@ -7,14 +7,11 @@ class Antenne
 {
     public:
         Antenne();
-        Antenne(double x, double y, std::string nom, double puissance, double frequence, int rouge , int vert, int bleu);
+        Antenne(double x, double y, std::string nom, double puissance, double frequence);
         Point position();
         const std::string nom();
         double puissance();
         double frequence();
-        int rouge();
-        int vert();
-        int bleu();
         void setNom(std::string nom);
         void setPuissance(double puissance);
         void setFrequence(double frequence);
@@ -25,7 +22,6 @@ class Antenne
         std::string d_nom;
         double d_frequence;
         double d_puissance;
-        int d_rouge,d_vert,d_bleu;
 };
 
 #endif // ANTENNE_H

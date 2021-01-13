@@ -10,7 +10,6 @@ Window {
     width: 256
     height: 256
     property var antennePos
-    property var couleur
     property var puissance
     property var frequence
     property var nom
@@ -83,18 +82,6 @@ Window {
             }
 
             Button {
-                id: showColorPicker
-                text: qsTr("Choisir une couleur")
-                anchors.left: parent.left
-                anchors.leftMargin: 45
-                anchors.right: parent.right
-                anchors.rightMargin: 45
-                onClicked: {
-                    colorDialog.visible = true
-                }
-            }
-
-            Button {
                 id: addBtn
                 text: qsTr("Confirmer")
                 anchors.right: parent.right
@@ -114,7 +101,6 @@ Window {
                         antenne.nom = txtNom.text
                         antenne.puissance = Number(txtPuissance.text)
                         antenne.frequence = Number(txtFrequence.text)
-                        antenne.couleur = couleur
                         antenne.coordinate = coordinate;
                         listAntennes[antennePos] = antenne
 
@@ -122,17 +108,6 @@ Window {
                         addWindow.close()
                     }
 
-                }
-            }
-
-            ColorDialog {
-                id: colorDialog
-                title: "Choissiez une couleur"
-                onAccepted: {
-                    couleur = colorDialog.color
-                }
-                onRejected: {
-                    console.log("Canceled")
                 }
             }
 
@@ -146,7 +121,6 @@ Window {
         var antenne = component.createObject(window);
 
         antenne.coordinate = coordinate;
-        antenne.couleur = couleur;
         antenne.puissance = puissance;
         antenne.nom = nom;
         antenne.frequence = frequence;

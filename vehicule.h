@@ -12,8 +12,6 @@ class Vehicule
         void deplacer(const Point &p);
         Point getPosition(int time);
         void setPositionInfo(Point posInfo[]);
-        Point centre();
-        void setPosition(Point centre);
     private:
         Point d_position;
         double d_vitesse;

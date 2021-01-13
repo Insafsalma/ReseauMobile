@@ -26,11 +26,6 @@ ApplicationWindow {
     Plugin {
         id: mapPlugin
         name: "osm"
-        PluginParameter { name: "osm.useragent"; value: "My great Qt OSM application" }
-            PluginParameter { name: "osm.mapping.host"; value: "http://osm.tile.server.address/" }
-            PluginParameter { name: "osm.mapping.copyright"; value: "All mine" }
-            PluginParameter { name: "osm.routing.host"; value: "http://osrm.server.address/viaroute" }
-            PluginParameter { name: "osm.geocoding.host"; value: "http://geocoding.server.address" }
 
 
     }
@@ -89,11 +84,12 @@ ApplicationWindow {
                 routeQuery.addWaypoint(QtPositioning.coordinate(47.732828, 7.352456));
                 routeQuery.addWaypoint(QtPositioning.coordinate(47.766266, 7.384423));
                 routeQuery.addWaypoint(QtPositioning.coordinate(47.749676, 7.340333));
+                RouteQuery.CarTravel;
                 update();
             }
         }
 
-          MapCircle {
+        /*  MapCircle {
                    center {
                                  latitude: 47.728204
                                  longitude: 7.308574
@@ -102,7 +98,25 @@ ApplicationWindow {
                    color:  "red"
                    border.color: "red"
                    border.width: 1
-               }
+               }*/
+
+
+             MapItemView {
+                 model: routeModel
+                 delegate: routeDelegate
+             }
+
+             Component {
+                 id: routeDelegate
+
+                 MapRoute {
+                     route: routeData
+                     line.color: "red"
+                     line.width: 5
+                     smooth: true
+                     opacity: 0.8
+                 }
+             }
     }
 
     function dessinerHexagone(latitude, longitude, couleur, centreLongitude, centreLatitude){

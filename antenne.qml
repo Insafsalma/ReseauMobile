@@ -9,7 +9,6 @@ MapQuickItem {
     anchorPoint.y: icon.height * 0.8
     property var puissance
     property var frequence
-    property var couleur
     property var nom
 
     sourceItem: Image {
