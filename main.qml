@@ -14,6 +14,8 @@ import QtLocation 5.6
 //import GeneralMagic 1.0
 
 
+
+
 ApplicationWindow {
     id: window
     width: 600
@@ -25,9 +27,11 @@ ApplicationWindow {
 
     Plugin {
         id: mapPlugin
-        name: "osm"
-
-
+        name: "osm" // "mapboxgl", "esri", ...
+        //specify plugin parameters if necessary
+        //PluginParameter {...}
+        //PluginParameter {...}
+        //...
     }
 
     Map {
@@ -89,34 +93,24 @@ ApplicationWindow {
             }
         }
 
-        /*  MapCircle {
-                   center {
-                                 latitude: 47.728204
-                                 longitude: 7.308574
-                             }
-                   radius: 10.0
-                   color:  "red"
-                   border.color: "red"
-                   border.width: 1
+
+
+    /*    MapQuickItem {
+                   id: arrow
+                   coordinate:  QtPositioning.coordinate(47.749676, 7.340333)
+                 //  NumberAnimation on rotation { from: 0; to: 180; duration: 2000; loops: Animation.Infinite; }
+                   NumberAnimation {
+                          from: smiley.minHeight; to: smiley.maxHeight
+                          easing.type: Easing.OutExpo; duration: 300
+                      }
+                   anchorPoint.x: img.width/2
+                   anchorPoint.y: img.height/2
+                   sourceItem: Image {
+                       id: img
+                       source: "antenne.png"
+                   }
                }*/
 
-
-             MapItemView {
-                 model: routeModel
-                 delegate: routeDelegate
-             }
-
-             Component {
-                 id: routeDelegate
-
-                 MapRoute {
-                     route: routeData
-                     line.color: "red"
-                     line.width: 5
-                     smooth: true
-                     opacity: 0.8
-                 }
-             }
     }
 
     function dessinerHexagone(latitude, longitude, couleur, centreLongitude, centreLatitude){
@@ -137,11 +131,6 @@ ApplicationWindow {
     }
 
     function addAntenne(){
-      /*  var latitude = middleware.listLatitude;
-        var longitude = middleware.listLongitude;
-        var puissance = middleware.listPuissance;
-        var frequence = middleware.listFrequence;
-        var color = middleware.listColor;*/
 
         for (var i = 0; i < latitude.length; i++){
             var coordinate = QtPositioning.coordinate(latitude[i], longitude[i]);

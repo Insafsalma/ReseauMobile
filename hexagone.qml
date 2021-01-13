@@ -7,6 +7,10 @@ MapPolygon
     id: marker
     opacity: 0.10
     autoFadeIn : false
+    property var antennePos
+    property var puissance
+    property var frequence
+    property var nom
     property var coordinate:
     {
         latitude: 0
@@ -24,8 +28,12 @@ MapPolygon
         hoverEnabled: true
         onClicked: {
 
-            dialog = showDialogAdd()
-            dialog.visible = true
+            nom = "antenne"
+            puissance = 1
+            frequence = 99
+            addAntenneDialog()
+            assignAntenneToHexagone();
+
         }
 
     }
@@ -44,13 +52,17 @@ MapPolygon
         }
     }
 
-    function showDialogAdd(){
-        var component = Qt.createComponent("qrc:///ajoutAntenne.qml");
-        var dialog = component.createObject(window);
-        dialog.label = "Ajouter une antenne"
-        dialog.antennePos = " "
-        dialog.getCoordinate(coordinate.latitude, coordinate.longitude);
-        return dialog
+    function addAntenneDialog(){
+        var component = Qt.createComponent("qrc:///antenne.qml");
+        var antenne = component.createObject(window);
+
+        antenne.coordinate = coordinate;
+        antenne.puissance = puissance;
+        antenne.nom = nom+" "+coordinate;
+        antenne.frequence = frequence;
+        listAntennes.push(antenne);
+        map.addMapItem(antenne);
+
     }
 }
 

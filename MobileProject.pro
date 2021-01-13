@@ -30,7 +30,6 @@ RESOURCES += \
     main.qml \
     hexagone.qml \
     antenne.png \
-    ajoutAntenne.qml \
     antenne.qml \
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
@@ -50,7 +49,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 
 DISTFILES += \
-    ajoutAntenne.qml \
     antenne.png \
     antenne.qml \
     hexagone.qml \

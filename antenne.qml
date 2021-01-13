@@ -35,19 +35,11 @@ MapQuickItem {
     }
 
     function textAntenneToolTip() {
-        return "Nom de l'antenne " + this.nom +"\nPuissance de l'antenne:" +this.puissance + "\nFréquence de l'antenne"+this.frequence
+        return "Nom de l'antenne " + this.nom +"\nFréquence de l'antenne: " +this.frequence + "\nPuissance de l'antenne "+this.puissance
     }
 
     Menu {
         id: antenneMenu
-        MenuItem {
-            text:"Modifier l'antenne.."
-            onTriggered: {
-                var dialog = showDialogUpdate();
-                dialog.label = "Modifier une antenne"
-                dialog.visible = true
-            }
-        }
 
         MenuItem {
             text:"Supprimer l'antenne"
