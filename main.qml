@@ -7,6 +7,11 @@ import QtPositioning 5.15
 import QtQuick.Dialogs 1.0
 import QtQuick.Controls 2.0
 import QtQuick.Controls 1.4
+import QtQuick 2.3
+import QtPositioning 5.5
+import QtLocation 5.6
+
+//import GeneralMagic 1.0
 
 
 ApplicationWindow {
@@ -20,6 +25,11 @@ ApplicationWindow {
     Plugin {
         id: mapPlugin
         name: "osm"
+        PluginParameter { name: "osm.useragent"; value: "My great Qt OSM application" }
+            PluginParameter { name: "osm.mapping.host"; value: "http://osm.tile.server.address/" }
+            PluginParameter { name: "osm.mapping.copyright"; value: "All mine" }
+            PluginParameter { name: "osm.routing.host"; value: "http://osrm.server.address/viaroute" }
+            PluginParameter { name: "osm.geocoding.host"; value: "http://geocoding.server.address" }
 
 
     }
@@ -81,6 +91,7 @@ ApplicationWindow {
                 update();
             }
         }
+
           MapCircle {
                    center {
                                  latitude: 47.728204
@@ -107,6 +118,58 @@ ApplicationWindow {
             listHexagones.push(polygon);
         }
         map.addMapItem(polygon);
+
     }
+
+    function addAntenne(){
+        var latitude = middleware.listLatitude;
+        var longitude = middleware.listLongitude;
+        var puissance = middleware.listPuissance;
+        var frequence = middleware.listFrequence;
+        var color = middleware.listColor;
+
+        for (var i = 0; i < latitude.length; i++){
+            var coordinate = QtPositioning.coordinate(latitude[i], longitude[i]);
+            var component = Qt.createComponent("qrc:///antenne.qml");
+            var antenne = component.createObject(window);
+            antenne.coordinate = coordinate;
+            antenne.puissance = puissance[i];
+            antenne.couleur = color[i];
+            antenne.frequence = frequence[i];
+            listAntennes.push(antenne);
+            map.addMapItem(antenne);
+        }
+        assignAntenneToHexagone();
+    }
+
+    function assignAntenneToHexagone(){
+        var puissanceRecueMax;
+        var positionAntenne = 0;
+        for(var i = 0; i < listHexagones.length; i++){
+            if(listAntennes.length == 0){
+                listHexagones[i].antenne = undefined
+                listHexagones[i].color = "#586036"
+                listHexagones[i].opacity = 0.75
+                listHexagones[i].puissanceRecue = 0
+
+            } else {
+                var puissanceRecueAncienne = 0;
+                for(var j=0; j < listAntennes.length; j++){
+                    var puissanceRecue = listAntennes[j].puissance / (4 * Math.PI * (listHexagones[i].coordinate.distanceTo(listAntennes[j].coordinate))+0.0005)*1000;
+                    if(puissanceRecue > puissanceRecueAncienne){
+                        puissanceRecueAncienne = puissanceRecue;
+                        positionAntenne = j;
+
+                    }
+                }
+                listHexagones[i].antenne = listAntennes[positionAntenne];
+                listHexagones[i].color = listAntennes[positionAntenne].couleur;
+                listHexagones[i].opacity = 0.75 * puissanceRecueAncienne / listAntennes[positionAntenne].puissance * 10;
+                listHexagones[i].puissanceRecue = puissanceRecueAncienne
+            }
+
+        }
+    }
+
 
 }

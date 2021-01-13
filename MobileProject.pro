@@ -47,6 +47,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 
 DISTFILES += \
+    a-magnetique-auto.jpg \
+    ajoutAntenne.qml \
+    antenne.qml \
     hexagone.qml \
     main.qml
 
