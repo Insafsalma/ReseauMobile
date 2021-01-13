@@ -29,6 +29,9 @@ HEADERS += \
 RESOURCES += \
     main.qml \
     hexagone.qml \
+    a-magnetique-auto.jpg \
+    ajoutAntenne.qml \
+    antenne.qml \
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 #QML_IMPORT_PATH =
